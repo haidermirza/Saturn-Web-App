@@ -11,36 +11,33 @@ using haiderWebApp.GlobalVars;
 
 
 namespace haiderWebApp {
-	public partial class Devices : System.Web.UI.Page {
-		protected void Page_Load(object sender, EventArgs e) {
 
+	public partial class Devices : System.Web.UI.Page {
+
+		protected void Page_Load(object sender, EventArgs e) {
+	
 
 			// Showing devices against the roomID
-			string r = null;
-			string roomName = "";
+			string roomid = null;
 
-			string query = "SELECT * FROM devices";
+			string query = "SELECT * FROM devices d";
 			if (Request.QueryString["roomid"] != null) {
 
-				r = Request.QueryString["roomid"].ToString();
-
-				query += " where roomid=" + r;
-
+				roomid = Request.QueryString["roomid"].ToString();
+				query = "SELECT d.*,r.name as RoomName FROM devices d";
+				query += " inner join rooms r on r.id= d.roomid where roomid=" + roomid;
 			}
 
-			List<Device> lstDevices = new List<Device>();
+			List<DeviceRomms> lstDevices = new List<DeviceRomms>();
 			using (var db = new SmartHomeDB()) {
 
-
-				lstDevices = db.Database.SqlQuery<Device>(query).ToList();
-				roomName = db.Database.SqlQuery<Device>(query).ToString();
-
+				lstDevices = db.Database.SqlQuery<DeviceRomms>(query).ToList();
 			}
-
+			Label1.Text = lstDevices[0].RoomName;
 			gvDevices.DataSource = lstDevices;
 			gvDevices.DataBind();
 
-
+			//txtValueA.Text = roomName;
 
 			//#region MQTT Connection
 			//MqttClient MQTTclient;

@@ -1,19 +1,17 @@
-﻿
-
-<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="haiderWebApp.Contact" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="haiderWebApp.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+	<h2><%: Title %>.</h2>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
+	<address>
+		Office # 49C, 11th Street<br />
+		Badar Commercial, Defence Phase V<br />
+		Karachi, Pakistan<br />
+	</address>
+
+	<address>	
+		<strong>Phone:</strong>   <a href="#">+92-343-3085325</a><br />
+		<strong>E-Mail:</strong>   <a href="mailto:support@automate.pk">support@automate.pk</a><br />
+	</address>
+
 </asp:Content>

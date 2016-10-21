@@ -6,21 +6,17 @@ using haiderWebApp.DB;
 using haiderWebApp.GlobalVars;
 
 namespace haiderWebApp {
+
 	public partial class Rooms : System.Web.UI.Page {
 
 
 		protected void Page_Load(object sender, EventArgs e) {
-
-			// Showing rooms against the user ID
-			//classGlobalVars.g_userID = "3";
-			//string g = classGlobalVars.g_userID;
-
+			
 			List<Room> lstRooms = new List<Room>();
 
 			if (!Page.IsPostBack) {
 				using (var db = new SmartHomeDB()) {
 
-					//string query = "SELECT * FROM rooms where userid=" + g;
 					lstRooms = db.Database.SqlQuery<Room>("SELECT * FROM rooms where userid=1").ToList();
 				}
 
@@ -37,10 +33,12 @@ namespace haiderWebApp {
 
 		protected void gvRooms_RowCommand(object sender, GridViewCommandEventArgs e) {
 			try {
+
 				if (e.CommandName.ToString() == "GetDevices") {
-					//btnUpload.Text = "Update";
+	
 					int roomid = Convert.ToInt32(e.CommandArgument);
-					Response.Redirect("~/View/Devices.aspx?roomid="+roomid.ToString(),true);
+
+					Response.Redirect("~/View/Devices.aspx?roomid="+roomid+"&roomname=".ToString(),true);
 				}
 
 				else if (e.CommandName.ToString() == "DeleteMe") {

@@ -13,7 +13,10 @@
 		<asp:TemplateField ItemStyle-HorizontalAlign="Center">
 
 			<ItemTemplate>
+
+
 					<div class="col-xs-8">
+
 						<asp:LinkButton ID="lnkEdit" runat="server"  CommandName="GetDevices"
 							CommandArgument='<%# Bind("ID") %>' Text='<%# Bind("Name") %>' CausesValidation="false" class="btn btn-default btn-block"/>
 						
