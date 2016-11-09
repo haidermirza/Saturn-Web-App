@@ -8,9 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
-
 namespace haiderWebApp {
 
 
@@ -71,7 +68,7 @@ namespace haiderWebApp {
 
 		protected void Page_Load(object sender, EventArgs e) {
 
-			//userID = Context.User.Identity.GetUserName();
+			userID = Context.User.Identity.GetUserName();
 
 
 		}

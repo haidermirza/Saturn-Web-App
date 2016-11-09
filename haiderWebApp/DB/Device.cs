@@ -20,6 +20,10 @@ namespace haiderWebApp.DB
 
         public long ROOMID { get; set; }
 
+        public bool STATE { get; set; }
+
+        public bool STATUS { get; set; }
+
         public virtual Room Room { get; set; }
     }
 }

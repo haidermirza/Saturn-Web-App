@@ -9,7 +9,7 @@ namespace haiderWebApp {
 	public partial class _Default : Page {
 		protected void Page_Load(object sender, EventArgs e) {
 
-			Response.Redirect("~/View/Rooms.aspx");
+			//Response.Redirect("~/View/Rooms.aspx");
 		}
 	}
 }

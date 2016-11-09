@@ -13,40 +13,41 @@ using haiderWebApp.GlobalVars;
 namespace haiderWebApp {
 
 	public partial class Devices : System.Web.UI.Page {
-
+		List<DeviceRomms> lstDevices;
 		protected void Page_Load(object sender, EventArgs e) {
-	
 
-			// Showing devices against the roomID
-			string roomid = null;
+			if (!Page.IsPostBack) {
 
-			string query = "SELECT * FROM devices d";
-			if (Request.QueryString["roomid"] != null) {
+				// Showing devices against the roomID
+				string roomid = null;
 
-				roomid = Request.QueryString["roomid"].ToString();
-				query = "SELECT d.*,r.name as RoomName FROM devices d";
-				query += " inner join rooms r on r.id= d.roomid where roomid=" + roomid;
+				string query = "SELECT * FROM devices d";
+				if (Request.QueryString["roomid"] != null) {
+
+					roomid = Request.QueryString["roomid"].ToString();
+					query = "SELECT d.*,r.name as RoomName FROM devices d";
+					query += " inner join rooms r on r.id= d.roomid where roomid=" + roomid;
+				}
+
+				lstDevices = new List<DeviceRomms>();
+				using (var db = new SmartHomeDB()) {
+
+					lstDevices = db.Database.SqlQuery<DeviceRomms>(query).ToList();
+				}
+				lblRoomName.Text = lstDevices[0].RoomName;
+				gvDevices.DataSource = lstDevices;
+				gvDevices.DataBind();
+
+
+				Session["devices"] = lstDevices;
+				//#region MQTT Connection
+				//MqttClient MQTTclient;
+				//MQTTclient = new MqttClient("test.mosquitto.org");
+				//MQTTclient.Connect("esp");
+				//MQTTclient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+				//#endregion
+
 			}
-
-			List<DeviceRomms> lstDevices = new List<DeviceRomms>();
-			using (var db = new SmartHomeDB()) {
-
-				lstDevices = db.Database.SqlQuery<DeviceRomms>(query).ToList();
-			}
-			Label1.Text = lstDevices[0].RoomName;
-			gvDevices.DataSource = lstDevices;
-			gvDevices.DataBind();
-
-			//txtValueA.Text = roomName;
-
-			//#region MQTT Connection
-			//MqttClient MQTTclient;
-			//MQTTclient = new MqttClient("test.mosquitto.org");
-			//MQTTclient.Connect("esp");
-			//MQTTclient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
-			//#endregion
-
-
 		}
 
 		private void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e) {
@@ -58,16 +59,43 @@ namespace haiderWebApp {
 
 		}
 
-		//protected void CheckBox1_CheckChanged(object sender, System.EventArgs e) {
 
-		//	if (CheckBox1.Checked == true) {
-		//		Label1.Text = "WOW! You are a member of an asp.net user group.";
-		//		Label1.ForeColor = System.Drawing.Color.Green;
-		//	}
-		//	else {
-		//		Label1.Text = "You are not a member of any asp.net user group.";
-		//		Label1.ForeColor = System.Drawing.Color.Crimson;
-		//	}
-		//}
+		protected void CheckBox_CheckChanged(object sender, EventArgs e) {
+			//write the client id of the control that triggered the event
+			Response.Write(((CheckBox)sender).ClientID);
+		}
+
+		protected void cbxOperation_CheckedChanged(object sender, EventArgs e) {
+
+		}
+
+		protected void gvDevices_RowCommand(object sender, GridViewCommandEventArgs e) {
+
+
+			lstDevices = (List<DeviceRomms>)Session["devices"];
+			if (e.CommandName.ToString() == "OP") {
+
+
+				using (var db = new SmartHomeDB()) {
+
+					var a = db.MyDevices;//.ToList();
+					var b=a.Where(d => d.ID.ToString() == e.CommandArgument.ToString()).FirstOrDefault();
+					b.STATE = !b.STATE;
+					db.SaveChanges();
+					var device = lstDevices.Where(d => d.ID.ToString() == e.CommandArgument.ToString()).FirstOrDefault();//.STATE
+					device.STATE = !device.STATE;
+					gvDevices.DataSource = lstDevices;
+					gvDevices.DataBind();
+				}
+				
+
+			}
+
+		}
+
+
 	}
+
+
+
 }

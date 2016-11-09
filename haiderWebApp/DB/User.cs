@@ -30,6 +30,9 @@ namespace haiderWebApp.DB
         [StringLength(250)]
         public string MOBILE { get; set; }
 
+        [StringLength(50)]
+        public string PASSWORD { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Room> Rooms { get; set; }
     }

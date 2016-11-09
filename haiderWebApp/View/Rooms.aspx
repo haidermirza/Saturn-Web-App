@@ -2,32 +2,32 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-	<h2>Haider's Smart Home</h2>
+	<h3>Haider's Smart Home</h3>
 
 
-
+	<ul class="breadcrumb">
+		<li class="active">Home</li>
+	</ul>
 
 	<asp:GridView AutoGenerateColumns="false" ID="gvRooms" runat="server" AllowSorting="True" Width="100%" OnRowCommand="gvRooms_RowCommand">
 		<Columns>
 
-		<asp:TemplateField ItemStyle-HorizontalAlign="Center">
+			<asp:TemplateField ItemStyle-HorizontalAlign="Center">
 
-			<ItemTemplate>
+				<ItemTemplate>
 
 
 					<div class="col-xs-8">
 
-						<asp:LinkButton ID="lnkEdit" runat="server"  CommandName="GetDevices"
-							CommandArgument='<%# Bind("ID") %>' Text='<%# Bind("Name") %>' CausesValidation="false" class="btn btn-default btn-block"/>
-						
-						<p></p>
+						<asp:LinkButton ID="lnkEdit" runat="server" CommandName="GetDevices"
+							CommandArgument='<%# Bind("ID") %>' Text='<%# Bind("Name") %>' CausesValidation="false" class="btn btn-default btn-block" />
 					</div>
 
 
 
 				</ItemTemplate>
 
-		</asp:TemplateField>
+			</asp:TemplateField>
 
 		</Columns>
 	</asp:GridView>

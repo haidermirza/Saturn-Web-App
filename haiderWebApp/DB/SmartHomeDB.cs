@@ -9,9 +9,9 @@ namespace haiderWebApp.DB {
 				: base("name=SmartHomeDB") {
 		}
 
-		public virtual DbSet<Device> Devices { get; set; }
-		public virtual DbSet<Room> Rooms { get; set; }
-		public virtual DbSet<User> Users { get; set; }
+		public virtual DbSet<Device> MyDevices { get; set; }
+		public virtual DbSet<Room> MyRooms { get; set; }
+		public virtual DbSet<User> MyUsers { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			modelBuilder.Entity<Room>()
@@ -37,6 +37,10 @@ namespace haiderWebApp.DB {
 
 			modelBuilder.Entity<User>()
 					.Property(e => e.MOBILE)
+					.IsUnicode(false);
+
+			modelBuilder.Entity<User>()
+					.Property(e => e.PASSWORD)
 					.IsUnicode(false);
 
 			modelBuilder.Entity<User>()

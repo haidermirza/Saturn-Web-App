@@ -50,7 +50,7 @@ namespace haiderWebApp {
 
 				}
 			}
-			catch (Exception Exp) {
+			catch (Exception) {
 				//Master.ShowMessage("Error Occured in Deleting Record", MessageType.Error);
 			}
 		}

@@ -4,99 +4,61 @@
 
 
 	<div class="row">
-
 		<div class="col-xs-10">
-			<h2>My Smart Devices</h2>
+			<h3>My Smart Devices</h3>
 		</div>
-
 	</div>
-
-
 
 	<div class="list-group">
 
+		<ul class="breadcrumb">
+			<li><a href="/View/Rooms.aspx">Home</a></li>
+			<li class="active">
+				<asp:Label ID="lblRoomName" runat="server"></asp:Label></li>
+		</ul>
 
-		<a href="#" class="list-group-item active">
 
-			<asp:Label ID="Label1" runat="server"></asp:Label>
-		</a>
 
-		<asp:GridView AutoGenerateColumns="false" ID="gvDevices" runat="server" AllowSorting="True" Width="100%" OnSelectedIndexChanged="gvDevices_SelectedIndexChanged">
+
+		<asp:GridView ID="gvDevices" runat="server" AutoGenerateColumns="False" Width="98%"
+			CellPadding="4"
+			OnRowCommand="gvDevices_RowCommand">
+
+			<AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+
 			<Columns>
 
-				<asp:TemplateField ItemStyle-HorizontalAlign="Center">
-
+				<asp:TemplateField HeaderText="" ItemStyle-Width="3%" ItemStyle-HorizontalAlign="Center">
 					<ItemTemplate>
-
-						<div class="col-xs-8">
-
-							<a href="#" class="list-group-item">
-								<asp:Label ID="lblName" runat="server" Text='<% #Eval("Name") %>'></asp:Label>
-							</a>
-
-						</div>
-
-						<div class="col-xs-4">
-
-							<input id="checkID" type="checkbox" data-toggle="toggle" data-style="slow" runat="server" data-onstyle="success" data-offstyle="danger" data-width="50" data-height="30">
-							<p></p>
-							<p></p>
-						</div>
-
+						<asp:Button ID="btnAcknowledge" CausesValidation="false" runat="server" Text='<%# Eval("State").ToString()=="True"?"OFF":"ON" %>'
+							CommandName="OP"
+							CommandArgument='<%# Eval("ID").ToString() %>' />
 					</ItemTemplate>
+				</asp:TemplateField>
 
-					<ItemStyle HorizontalAlign="Center"></ItemStyle>
 
+				<asp:TemplateField HeaderText="Generated Date" ItemStyle-Width="15%" ItemStyle-HorizontalAlign="Left">
+					<ItemTemplate>
+						<asp:Label ID="lblName" runat="server" Text='<%# Eval("Name").ToString()%>'>
+						</asp:Label>
+						<%--<asp:HiddenField ID="lblAlarmID" runat="server" Value='<%# Eval("AlaramID").ToString() %>' />--%>
+					</ItemTemplate>
 				</asp:TemplateField>
 
 			</Columns>
+			<EditRowStyle BackColor="#999999" />
+			<FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+			<HeaderStyle BackColor="White" Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+			<PagerStyle ForeColor="Black" HorizontalAlign="Center" Font-Size="Medium" />
+			<RowStyle BackColor="#F7F6F3" ForeColor="#333333" Height="30px" />
+			<SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+			<SortedAscendingCellStyle BackColor="#E9E7E2" />
+			<SortedAscendingHeaderStyle BackColor="#506C8C" />
+			<SortedDescendingCellStyle BackColor="#FFFDF8" />
+			<SortedDescendingHeaderStyle BackColor="#6F8DAE" />
 		</asp:GridView>
 
-
 	</div>
 
 
-
-
-
-	<%--
-
-	
-
-	<div class="row">
-
-		<div class="col-xs-8">
-			<a href="#" class="btn btn-primary btn-block">Light</a>
-		</div>
-
-		<div class="col-xs-4">
-			<input type="checkbox" checked data-toggle="toggle" data-style="slow">
-		</div>
-
-	</div>
-
-	<div class="row">
-
-		<div class="col-xs-8">
-			<a href="#" class="btn btn-primary btn-block">Fan</a>
-		</div>
-
-		<div class="col-xs-4">
-			<input type="checkbox" checked data-toggle="toggle" data-style="slow">
-		</div>
-
-	</div>
-
-	<div class="row">
-
-		<div class="col-xs-8">
-			<a href="#" class="btn btn-primary btn-block">Table Lamp</a>
-		</div>
-
-		<div class="col-xs-4">
-			<input type="checkbox" checked data-toggle="toggle" data-style="slow">
-		</div>
-
-
-	</div>--%>
 </asp:Content>
